@@ -99,7 +99,7 @@ class SimpleDrivingEnv(gym.Env):
 
         # New: top-view (can pull up higher if needed with cameraEyePosition z value)
         view_matrix = p.computeViewMatrix(
-                        cameraEyePosition=[0, 0, 10],
+                        cameraEyePosition=[0, 0, 12],
                         cameraTargetPosition=[0, 0, 0],
                         cameraUpVector=[0,1,0])
 
