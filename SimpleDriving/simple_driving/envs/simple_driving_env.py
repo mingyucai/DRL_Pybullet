@@ -68,9 +68,9 @@ class SimpleDrivingEnv(gym.Env):
         self.car = Car(self.client)
 
         # Set the goal to a random target
-        x = (self.np_random.uniform(5, 9) if self.np_random.randint(2) else
+        x = (self.np_random.uniform(5, 9) if self.np_random.integers(2) else
              self.np_random.uniform(-9, -5))
-        y = (self.np_random.uniform(5, 9) if self.np_random.randint(2) else
+        y = (self.np_random.uniform(5, 9) if self.np_random.integers(2) else
              self.np_random.uniform(-9, -5))
         self.goal = (x, y)
         self.done = False
