@@ -97,11 +97,19 @@ class SimpleDrivingEnv(gym.Env):
                     p.getBasePositionAndOrientation(car_id, client_id)]
         pos[2] = 0.2
 
+        # New: top-view (can pull up higher if needed with cameraEyePosition z value)
+        view_matrix = p.computeViewMatrix(
+                        cameraEyePosition=[0, 0, 10],
+                        cameraTargetPosition=[0, 0, 0],
+                        cameraUpVector=[0,1,0])
+
+
+        # Original: POV
         # Rotate camera direction
-        rot_mat = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
-        camera_vec = np.matmul(rot_mat, [1, 0, 0])
-        up_vec = np.matmul(rot_mat, np.array([0, 0, 1]))
-        view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
+        # rot_mat = np.array(p.getMatrixFromQuaternion(ori)).reshape(3, 3)
+        # camera_vec = np.matmul(rot_mat, [1, 0, 0])
+        # up_vec = np.matmul(rot_mat, np.array([0, 0, 1]))
+        # view_matrix = p.computeViewMatrix(pos, pos + camera_vec, up_vec)
 
         # Display image
         frame = p.getCameraImage(100, 100, view_matrix, proj_matrix)[2]
