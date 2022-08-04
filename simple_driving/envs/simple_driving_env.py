@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 class SimpleDrivingEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
+    def __init__(self, pb_connect=p.DIRECT):
+        self.pb_connect = pb_connect
         self.action_space = gym.spaces.box.Box(
             low=np.array([0, -.6], dtype=np.float32),
             high=np.array([1, .6], dtype=np.float32))
@@ -20,7 +21,7 @@ class SimpleDrivingEnv(gym.Env):
             high=np.array([10, 10, 1, 1, 5, 5, 10, 10], dtype=np.float32))
         self.np_random, _ = gym.utils.seeding.np_random()
 
-        self.client = p.connect(p.DIRECT)
+        self.client = p.connect(pb_connect)
         # Reduce length of episodes for RL algorithms
         p.setTimeStep(1/30, self.client)
 
@@ -115,8 +116,13 @@ class SimpleDrivingEnv(gym.Env):
         frame = p.getCameraImage(100, 100, view_matrix, proj_matrix)[2]
         frame = np.reshape(frame, (100, 100, 4))
         self.rendered_img.set_data(frame)
-        plt.draw()
-        plt.pause(.00001)
+
+        if self.pb_connect == p.DIRECT:
+            plt.draw()
+            plt.pause(.00001)
+        else:
+            # Synthetic RGB camera is already displayed on pybullet GUI
+            assert self.pb_connect == p.GUI
 
     def close(self):
         p.disconnect(self.client)
