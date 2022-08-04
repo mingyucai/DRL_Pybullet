@@ -2,7 +2,7 @@ import pybullet as p
 import time
 import  pybullet_data
 physicsClient = p.connect(p.GUI)
-# p.resetDebugVisualizerCamera(cameraDistance=1.0, cameraYaw=-90, cameraPith=-45, cameraTargetPosition = [-0.1, -0.0, 0.65])
+p.resetDebugVisualizerCamera(cameraDistance=1.0, cameraYaw=-90, cameraPitch=-45, cameraTargetPosition = [-0.1, -0.0, 0.65])
 # p.resetSimulation()
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0, 0, -10)
