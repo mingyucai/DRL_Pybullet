@@ -9,7 +9,7 @@ if __name__ == '__main__':
     obs = env.reset()
     for _ in range(1000):
         obs, reward, done, info = env.step(env.action_space.sample())
-        time.sleep(0.1)
+        # time.sleep(0.1)
         if done:
             break
         env.render()
